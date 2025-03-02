@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.springboot.pollsservice.Api.DTO.Response.PollsResponse.PollResponse;
+import org.example.springboot.pollsservice.Api.DTO.Request.PollRequest;
+import org.example.springboot.pollsservice.Api.DTO.Response.PollResponse;
+import org.example.springboot.pollsservice.Api.Exceptions.AlreadyExistPollExсeption;
 import org.example.springboot.pollsservice.Api.PollsMapper.PollsMapper;
 import org.example.springboot.pollsservice.Data.Entities.Poll;
 import org.example.springboot.pollsservice.Data.Entities.Question;
@@ -32,5 +34,22 @@ public class PollsService {
             poll.setQuestions(questions);
         });
         return pollsMapper.mapToPollResponses(polls);
+    }
+    @Transactional
+    public List<PollResponse> getAllPollsWithoutElements() {
+        return pollRepository.findAll().stream()
+                .map(pollsMapper::mapToPollResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public PollResponse createPoll(PollRequest pollRequest) {
+        if (pollRepository.existsByTitle(pollRequest.getTitle())) {
+            throw new AlreadyExistPollExсeption("The poll with this title already exists");
+        }
+        Poll poll = pollsMapper.mapToPoll(pollRequest);
+        Poll savedPoll = pollRepository.save(poll);
+        System.out.println("Saved poll: " + savedPoll);
+        return pollsMapper.mapToPollResponse(savedPoll);
     }
 }

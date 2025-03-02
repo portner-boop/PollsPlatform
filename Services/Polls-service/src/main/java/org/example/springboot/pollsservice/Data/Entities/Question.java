@@ -2,6 +2,8 @@ package org.example.springboot.pollsservice.Data.Entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Fetch;
@@ -32,5 +34,11 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers;
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+        if (answers != null) answers.forEach(a -> a.setQuestion(this));
+    }
+
 
 }

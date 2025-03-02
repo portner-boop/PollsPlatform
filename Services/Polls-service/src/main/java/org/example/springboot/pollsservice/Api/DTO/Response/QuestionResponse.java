@@ -1,4 +1,4 @@
-package org.example.springboot.pollsservice.Api.DTO.Response.PollsResponse;
+package org.example.springboot.pollsservice.Api.DTO.Response;
 
 import lombok.Builder;
 

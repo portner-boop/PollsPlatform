@@ -2,8 +2,12 @@ package org.example.springboot.pollsservice.Data.Entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.example.springboot.pollsservice.Api.DTO.Request.QuestionRequest;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -31,9 +35,16 @@ public class Poll {
     private String description;
 
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @CreationTimestamp
     private LocalDateTime dateOfCreation;
 
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions;
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+        if (questions != null) questions.forEach(q -> q.setPoll(this));
+    }
+
 
 }

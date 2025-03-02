@@ -1,10 +1,10 @@
 package org.example.springboot.pollsservice.Api.PollsMapper;
 
 import lombok.RequiredArgsConstructor;
-import org.example.springboot.pollsservice.Api.DTO.Response.PollsResponse.AnswerResponse;
-import org.example.springboot.pollsservice.Api.DTO.Response.PollsResponse.PollResponse;
-import org.example.springboot.pollsservice.Api.DTO.Response.PollsResponse.QuestionResponse;
-import org.example.springboot.pollsservice.Data.Entities.Answer;
+import lombok.extern.slf4j.Slf4j;
+import org.example.springboot.pollsservice.Api.DTO.Request.PollRequest;
+import org.example.springboot.pollsservice.Api.DTO.Response.PollResponse;
+import org.example.springboot.pollsservice.Api.DTO.Response.QuestionResponse;
 import org.example.springboot.pollsservice.Data.Entities.Poll;
 import org.example.springboot.pollsservice.Data.Entities.Question;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class PollsMapper {
@@ -20,13 +21,13 @@ public class PollsMapper {
 
     public List<PollResponse> mapToPollResponses(List<Poll> polls) {
         return polls.stream()
-                .map(this::mapToPollResponse)
+                .map(this::mapToPollResponseWithQuestion)
                 .collect(Collectors.toList());
     }
 
-    public PollResponse mapToPollResponse(Poll poll) {
+    public PollResponse mapToPollResponseWithQuestion(Poll poll) {
         List<QuestionResponse> questionResponses = poll.getQuestions().stream()
-                .map(this::mapToQuestionResponse)
+                .map(questionMapper::mapToQuestionResponse)
                 .collect(Collectors.toList());
 
         return new PollResponse(
@@ -37,23 +38,33 @@ public class PollsMapper {
                 questionResponses
         );
     }
-    private QuestionResponse mapToQuestionResponse(Question question) {
-        List<AnswerResponse> answerResponses = question.getAnswers().stream()
-                .map(this::mapToAnswerResponse)
-                .collect(Collectors.toList());
+    public PollResponse mapToPollResponse(Poll poll) {
+        return new PollResponse(
+                poll.getId(),
+                poll.getTitle(),
+                poll.getDescription(),
+                poll.getDateOfCreation(),
+                null
+        );
+    }
 
-        return new QuestionResponse(
-                question.getId(),
-                question.getQuestion(),
-                answerResponses
-        );
+    public Poll mapToPoll(PollRequest poll) {
+        List<Question> questions = poll
+                .getQuestions()
+                .stream()
+                .map(questionMapper::mapToQuestion)
+                .toList();
+
+        Poll newPoll = new Poll();
+        newPoll.setTitle(poll.getTitle());
+        newPoll.setDescription(poll.getDescription());
+        questions.forEach(q -> q.setPoll(newPoll));
+        newPoll.setQuestions(questions);
+
+        return newPoll;
+
     }
-    private AnswerResponse mapToAnswerResponse(Answer answer) {
-        return new AnswerResponse(
-                answer.getId(),
-                answer.getAnswer(),
-                answer.isCorrectness()
-        );
-    }
+
+
 
 }
