@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.example.springboot.pollsservice.Api.DTO.Request.PollRequest;
 import org.example.springboot.pollsservice.Api.DTO.Response.PollResponse;
 import org.example.springboot.pollsservice.Api.Exceptions.AlreadyExistPollExсeption;
+import org.example.springboot.pollsservice.Api.Exceptions.NotFoundPollException;
 import org.example.springboot.pollsservice.Api.PollsMapper.PollsMapper;
 import org.example.springboot.pollsservice.Data.Entities.Poll;
 import org.example.springboot.pollsservice.Data.Entities.Question;
@@ -51,5 +52,20 @@ public class PollsService {
         Poll savedPoll = pollRepository.save(poll);
         System.out.println("Saved poll: " + savedPoll);
         return pollsMapper.mapToPollResponse(savedPoll);
+    }
+    @Transactional
+    public PollResponse getPollByTitle(Long id) {
+        return pollsMapper
+                .mapToPollResponse(pollRepository
+                .findPollById(id)
+                .orElseThrow(() -> new NotFoundPollException( "Not found this poll with id: " + id)));
+    }
+    @Transactional
+    public void deletePoll(Long id) {
+        if (!pollRepository.existsById(id)) {
+            throw new NotFoundPollException("Not found this poll with id: " + id);
+        }
+        pollRepository.deleteById(id);
+
     }
 }

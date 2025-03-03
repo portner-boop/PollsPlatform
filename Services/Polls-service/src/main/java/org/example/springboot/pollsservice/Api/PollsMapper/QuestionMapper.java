@@ -35,7 +35,6 @@ public class QuestionMapper {
                 .map(answerMapper::mapToAnswer)
                 .toList();
 
-
         Question question = new Question();
         question.setQuestion(questionRequest.getQuestion());
         answers.forEach(a -> a.setQuestion(question));
