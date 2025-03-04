@@ -15,7 +15,7 @@ public class AnswerRequest {
     @NotEmpty(message = "Fill this please")
     private String answer;
 
-    @NotNull
+
     @NotEmpty(message = "Fill this please")
     boolean correctness;
 

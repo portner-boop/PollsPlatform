@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: pollsdb
+      POSTGRES_DB: polls_platform_bd
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always

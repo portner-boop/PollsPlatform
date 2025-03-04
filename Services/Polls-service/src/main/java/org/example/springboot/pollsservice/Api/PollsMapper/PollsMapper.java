@@ -35,17 +35,26 @@ public class PollsMapper {
                 poll.getTitle(),
                 poll.getDescription(),
                 poll.getDateOfCreation(),
+                poll.getTypeOfAnswer(),
                 questionResponses
         );
     }
     public PollResponse mapToPollResponse(Poll poll) {
-        return new PollResponse(
-                poll.getId(),
-                poll.getTitle(),
-                poll.getDescription(),
-                poll.getDateOfCreation(),
-                null
-        );
+        List<QuestionResponse> list= poll.getQuestions()
+                .stream()
+                .map(questionMapper::mapToQuestionResponse)
+                .toList();
+
+        return PollResponse
+                .builder()
+                .id(poll.getId())
+                .title(poll.getTitle())
+                .dateOfCreation(poll.getDateOfCreation())
+                .description(poll.getDescription())
+                .typeOfAnswer(poll.getTypeOfAnswer())
+                .questions(list)
+                .build();
+
     }
 
     public Poll mapToPoll(PollRequest poll) {
@@ -58,6 +67,7 @@ public class PollsMapper {
         Poll newPoll = new Poll();
         newPoll.setTitle(poll.getTitle());
         newPoll.setDescription(poll.getDescription());
+        newPoll.setTypeOfAnswer(poll.getTypeOfAnswer());
         questions.forEach(q -> q.setPoll(newPoll));
         newPoll.setQuestions(questions);
 

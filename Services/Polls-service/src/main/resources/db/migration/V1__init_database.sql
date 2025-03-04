@@ -2,7 +2,8 @@ CREATE TABLE polls (
                        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                        title VARCHAR(255),
                        description TEXT,
-                       date_of_creation TIMESTAMP WITH TIME ZONE
+                       date_of_creation TIMESTAMP WITH TIME ZONE,
+                       type_of_answer VARCHAR(50) NOT NULL CHECK (type_of_answer IN ('TEST', 'STATISTICS'))
 );
 
 CREATE TABLE questions (

@@ -1,21 +1,25 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/polls_platform_bd
+    url: jdbc:postgresql://localhost:5432/polls_platform_bd?schema=user_bd
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
+    properties:
+      hibernate:
+        default_schema: user
     hibernate:
       ddl-auto: none
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    default_schema: user
   flyway:
     baseline-on-migrate: true
     enabled: true
-    schemas: public
+    schemas: user
     baseline-description: "init"
     baseline-version: 0
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 server:
-  port: 8001
+  port: 8002

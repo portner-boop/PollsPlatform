@@ -55,10 +55,12 @@ public class PollsService {
     }
     @Transactional
     public PollResponse getPollByTitle(Long id) {
-        return pollsMapper
-                .mapToPollResponse(pollRepository
-                .findPollById(id)
-                .orElseThrow(() -> new NotFoundPollException( "Not found this poll with id: " + id)));
+        Poll poll = pollRepository.
+                findPollById(id)
+                .orElseThrow(()-> new NotFoundPollException("Not found poll"));
+        List<Question> questions = questionRepository.findAllByPollIdWithAnswers(id);
+        poll.setQuestions(questions);
+        return pollsMapper.mapToPollResponse(poll);
     }
     @Transactional
     public void deletePoll(Long id) {

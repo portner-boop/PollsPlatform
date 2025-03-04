@@ -38,6 +38,9 @@ public class Poll {
     @CreationTimestamp
     private LocalDateTime dateOfCreation;
 
+    @Enumerated(EnumType.STRING)
+    TypeOfAnswer typeOfAnswer;
+
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions;
 
