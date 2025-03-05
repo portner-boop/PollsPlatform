@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+
     @Query("SELECT q FROM Question q LEFT JOIN FETCH q.answers WHERE q.poll.id = :pollId")
     List<Question> findAllByPollIdWithAnswers(@Param("pollId") Long pollId);
+
 }

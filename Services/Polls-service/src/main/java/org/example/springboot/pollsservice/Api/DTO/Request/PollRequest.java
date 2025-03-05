@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.example.springboot.pollsservice.Data.Entities.TypeOfAnswer;
+import org.example.springboot.pollsservice.Data.Entities.TypeOfPoll;
 
 import java.util.List;
 
@@ -15,20 +15,19 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PollRequest {
 
-    @NotNull
-    @NotEmpty(message = "Fill this please")
+    @NotNull(message = "Title must not be null")
+    @NotEmpty(message = "Title must not be empty")
     String title;
 
-    @NotNull
-    @NotEmpty(message = "Fill this please")
+    @NotNull(message = "Description  must not be null")
+    @NotEmpty(message = "Description must not be empty")
     String description;
 
-    @NotNull
-    @NotEmpty(message = "Fill this please")
-    TypeOfAnswer typeOfAnswer;
+    @NotNull(message = "TypeOfAnswer must not be null")
+    TypeOfPoll typeOfPoll;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Questions must not be null")
+    @NotEmpty(message = "Questions must not be empty")
     List<QuestionRequest> questions;
 
 

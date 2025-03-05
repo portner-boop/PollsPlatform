@@ -10,7 +10,7 @@ import org.example.springboot.pollsservice.Data.Entities.Question;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Slf4j
 @Component
@@ -19,27 +19,8 @@ public class PollsMapper {
 
     private final QuestionMapper questionMapper;
 
-    public List<PollResponse> mapToPollResponses(List<Poll> polls) {
-        return polls.stream()
-                .map(this::mapToPollResponseWithQuestion)
-                .collect(Collectors.toList());
-    }
 
-    public PollResponse mapToPollResponseWithQuestion(Poll poll) {
-        List<QuestionResponse> questionResponses = poll.getQuestions().stream()
-                .map(questionMapper::mapToQuestionResponse)
-                .collect(Collectors.toList());
-
-        return new PollResponse(
-                poll.getId(),
-                poll.getTitle(),
-                poll.getDescription(),
-                poll.getDateOfCreation(),
-                poll.getTypeOfAnswer(),
-                questionResponses
-        );
-    }
-    public PollResponse mapToPollResponse(Poll poll) {
+    public PollResponse mapToPollResponseWithQuestionsAndAnswers(Poll poll) {
         List<QuestionResponse> list= poll.getQuestions()
                 .stream()
                 .map(questionMapper::mapToQuestionResponse)
@@ -51,10 +32,21 @@ public class PollsMapper {
                 .title(poll.getTitle())
                 .dateOfCreation(poll.getDateOfCreation())
                 .description(poll.getDescription())
-                .typeOfAnswer(poll.getTypeOfAnswer())
+                .typeOfPoll(poll.getTypeOfPoll())
                 .questions(list)
                 .build();
+    }
+    public PollResponse mapToPollResponseWithoutQuestionsAndAnswers(Poll poll) {
 
+        return PollResponse
+                .builder()
+                .id(poll.getId())
+                .title(poll.getTitle())
+                .dateOfCreation(poll.getDateOfCreation())
+                .description(poll.getDescription())
+                .typeOfPoll(poll.getTypeOfPoll())
+                .questions(null)
+                .build();
     }
 
     public Poll mapToPoll(PollRequest poll) {
@@ -67,12 +59,11 @@ public class PollsMapper {
         Poll newPoll = new Poll();
         newPoll.setTitle(poll.getTitle());
         newPoll.setDescription(poll.getDescription());
-        newPoll.setTypeOfAnswer(poll.getTypeOfAnswer());
+        newPoll.setTypeOfPoll(poll.getTypeOfPoll());
         questions.forEach(q -> q.setPoll(newPoll));
         newPoll.setQuestions(questions);
 
         return newPoll;
-
     }
 
 

@@ -2,18 +2,11 @@ package org.example.springboot.pollsservice.Data.Entities;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.example.springboot.pollsservice.Api.DTO.Request.QuestionRequest;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -39,7 +32,7 @@ public class Poll {
     private LocalDateTime dateOfCreation;
 
     @Enumerated(EnumType.STRING)
-    TypeOfAnswer typeOfAnswer;
+    TypeOfPoll typeOfPoll;
 
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions;

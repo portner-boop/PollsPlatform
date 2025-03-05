@@ -1,5 +1,5 @@
 -- Вставка данных в таблицу polls
-INSERT INTO polls (title, description, date_of_creation, type_of_answer)
+INSERT INTO polls (title, description, date_of_creation, type_of_poll)
 VALUES
     ('Опрос о технологиях', 'Опрос про современные технологии', '2025-03-01 10:00:00+00', 'TEST'),
     ('Опрос о еде', 'Опрос о пищевых предпочтениях', '2025-03-01 12:00:00+00', 'TEST');

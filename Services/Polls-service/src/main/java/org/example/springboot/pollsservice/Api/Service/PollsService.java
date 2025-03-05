@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.springboot.pollsservice.Api.DTO.Request.PollRequest;
 import org.example.springboot.pollsservice.Api.DTO.Response.PollResponse;
-import org.example.springboot.pollsservice.Api.Exceptions.AlreadyExistPollExсeption;
+import org.example.springboot.pollsservice.Api.Exceptions.AlreadyExistPollException;
 import org.example.springboot.pollsservice.Api.Exceptions.NotFoundPollException;
 import org.example.springboot.pollsservice.Api.PollsMapper.PollsMapper;
 import org.example.springboot.pollsservice.Data.Entities.Poll;
@@ -29,39 +29,39 @@ public class PollsService {
 
     @Transactional
     public List<PollResponse> getAllPollsWithQuestionsAndAnswers() {
-        List<Poll> polls = pollRepository.findAllWithQuestions();
-        polls.forEach(poll -> {
-            List<Question> questions = questionRepository.findAllByPollIdWithAnswers(poll.getId());
-            poll.setQuestions(questions);
-        });
-        return pollsMapper.mapToPollResponses(polls);
+        return pollRepository.findAll().stream()
+                .map(pollsMapper::mapToPollResponseWithQuestionsAndAnswers)
+                .collect(Collectors.toList());
     }
+
     @Transactional
     public List<PollResponse> getAllPollsWithoutElements() {
         return pollRepository.findAll().stream()
-                .map(pollsMapper::mapToPollResponse)
+                .map(pollsMapper::mapToPollResponseWithoutQuestionsAndAnswers)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public PollResponse createPoll(PollRequest pollRequest) {
         if (pollRepository.existsByTitle(pollRequest.getTitle())) {
-            throw new AlreadyExistPollExсeption("The poll with this title already exists");
+            throw new AlreadyExistPollException("The poll with this title already exists");
         }
         Poll poll = pollsMapper.mapToPoll(pollRequest);
         Poll savedPoll = pollRepository.save(poll);
-        System.out.println("Saved poll: " + savedPoll);
-        return pollsMapper.mapToPollResponse(savedPoll);
+        return pollsMapper.mapToPollResponseWithQuestionsAndAnswers(savedPoll);
     }
+
     @Transactional
     public PollResponse getPollByTitle(Long id) {
         Poll poll = pollRepository.
                 findPollById(id)
-                .orElseThrow(()-> new NotFoundPollException("Not found poll"));
+                .orElseThrow(()-> new NotFoundPollException("Not found poll with id: " + id));
+
         List<Question> questions = questionRepository.findAllByPollIdWithAnswers(id);
         poll.setQuestions(questions);
-        return pollsMapper.mapToPollResponse(poll);
+        return pollsMapper.mapToPollResponseWithQuestionsAndAnswers(poll);
     }
+
     @Transactional
     public void deletePoll(Long id) {
         if (!pollRepository.existsById(id)) {

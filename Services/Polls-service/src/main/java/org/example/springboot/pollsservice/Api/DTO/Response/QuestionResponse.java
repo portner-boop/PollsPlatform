@@ -6,7 +6,9 @@ import java.util.List;
 
 @Builder
 public record QuestionResponse(
+
         Long id,
         String question,
         List<AnswerResponse> answers
+
 ) {}

@@ -1,21 +1,21 @@
 package org.example.springboot.pollsservice.Api.DTO.Request;
 
-import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.example.springboot.pollsservice.Data.Entities.Answer;
-import org.example.springboot.pollsservice.Data.Entities.Poll;
+
 
 import java.util.List;
 
 @Data
 public class QuestionRequest {
-    @NotNull
-    @NotEmpty(message = "Fill this please")
+    @NotNull(message = "Question must not be null")
+    @NotEmpty(message = "Question must not be empty")
     private String question;
 
-    @NotNull
-    @NotEmpty(message = "Fill this please")
+    @NotNull(message = "Answers must not be null")
+    @NotEmpty(message = "Answers must not be empty ")
+    @Valid
     private List<AnswerRequest> answers;
 }

@@ -3,7 +3,7 @@ CREATE TABLE polls (
                        title VARCHAR(255),
                        description TEXT,
                        date_of_creation TIMESTAMP WITH TIME ZONE,
-                       type_of_answer VARCHAR(50) NOT NULL CHECK (type_of_answer IN ('TEST', 'STATISTICS'))
+                       type_of_poll VARCHAR(50) NOT NULL CHECK (type_of_poll IN ('TEST', 'STATISTICS'))
 );
 
 CREATE TABLE questions (
