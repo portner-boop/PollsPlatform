@@ -3,7 +3,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8282/eureka
+      defaultZone: http://localhost:8000/eureka
 spring:
   cloud:
     config:

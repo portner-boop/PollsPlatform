@@ -46,7 +46,7 @@ public class PollsController {
     @GetMapping("/poll/{id}")
     public ResponseEntity<PollResponse> getPoll(
             @PathVariable Long id) {
-        return ResponseEntity.ok(pollsService.getPollByTitle(id));
+        return ResponseEntity.ok(pollsService.getPollById(id));
     }
 
     @DeleteMapping("/delete/{id}")

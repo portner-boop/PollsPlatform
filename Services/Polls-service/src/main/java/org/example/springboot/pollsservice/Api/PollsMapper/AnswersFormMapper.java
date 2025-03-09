@@ -7,6 +7,7 @@ import org.example.springboot.pollsservice.Api.DTO.Response.AnswersFormResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +21,8 @@ public class AnswersFormMapper {
                 .stream()
                 .map(answerMapper::mapToAnswerResponseForm)
                 .toList();
-        return new AnswersFormResponse(answersFormRequest.getPollId(), listOfAnswerResponses);
+        return new AnswersFormResponse(answersFormRequest.getPollId(),
+                answersFormRequest.getType(), UUID.randomUUID(), listOfAnswerResponses);
 
     }
 }

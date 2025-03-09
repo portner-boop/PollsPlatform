@@ -18,13 +18,13 @@ public class AnswerMapper {
 
     private final AnswerRepository answerRepository;
 
-    public AnswerResponse mapToAnswerResponse(Answer answer) {
-        return new AnswerResponse(
-                answer.getId(),
-                answer.getAnswer(),
-                answer.isCorrectness()
-        );
-    }
+        public AnswerResponse mapToAnswerResponse(Answer answer) {
+            return new AnswerResponse(
+                    answer.getId(),
+                    answer.getAnswer(),
+                    answer.isCorrectness()
+            );
+        }
 
     public Answer mapToAnswer(AnswerRequest answerRequest) {
         Answer answer = new Answer();

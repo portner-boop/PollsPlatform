@@ -52,7 +52,7 @@ public class PollsService {
     }
 
     @Transactional
-    public PollResponse getPollByTitle(Long id) {
+    public PollResponse getPollById(Long id) {
         Poll poll = pollRepository.
                 findPollById(id)
                 .orElseThrow(()-> new NotFoundPollException("Not found poll with id: " + id));

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/polls_platform_bd?schema=analytic
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    baseline-on-migrate: true
+    enabled: true
+    schemas: analytic
+    baseline-description: "init"
+    baseline-version: 0
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: analytic-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: org.example.springboot.analyticsservice.Api.DTO
+        spring.json.type.mapping: AnswersFormResponse:org.example.springboot.analyticsservice.Api.DTO.Kafka.AnswersFormRequest
+    listener:
+      type: single
+server:
+  port: 8003
