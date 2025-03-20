@@ -3,14 +3,13 @@ package org.example.springboot.analyticsservice.Api.Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.example.springboot.analyticsservice.Api.DTO.Analytic.AnalyticAnswer;
-import org.example.springboot.analyticsservice.Api.DTO.Analytic.QuestionAnalytic;
 import org.example.springboot.analyticsservice.Api.DTO.Analytic.TestAnalyticResponse;
 import org.example.springboot.analyticsservice.Api.DTO.Kafka.AnswersFormRequest;
 import org.example.springboot.analyticsservice.Api.DTO.RestObject.PollAnalytics;
 import org.example.springboot.analyticsservice.Api.Exception.NotFoundUserException;
+import org.example.springboot.analyticsservice.Api.Mapper.Analytic.TestAnalyticResponseMapperForAnalytic;
 import org.example.springboot.analyticsservice.Api.Mapper.PollMapper;
-import org.example.springboot.analyticsservice.Api.Mapper.TestAnalyticResponseMapper;
+import org.example.springboot.analyticsservice.Api.Mapper.Test.TestAnalyticResponseMapperForTest;
 import org.example.springboot.analyticsservice.Data.Entity.Poll;
 import org.example.springboot.analyticsservice.Data.Entity.PollsCompletedByUser;
 import org.example.springboot.analyticsservice.Data.Repository.PollRepository;
@@ -19,7 +18,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +28,8 @@ public class AnalyticService {
     private final PollRepository pollRepository;
     private final PollMapper pollMapper;
     private final GettingPollService gettingPollService;
-    private final TestAnalyticResponseMapper testAnalyticResponseMapper;
+    private final TestAnalyticResponseMapperForTest testAnalyticResponseMapperForTest;
+    private final TestAnalyticResponseMapperForAnalytic testAnalyticResponseMapperForAnalytic;
 
     @KafkaListener(topics = "answers-topic", groupId = "analytic-service-group")
     @Transactional
@@ -70,7 +69,16 @@ public class AnalyticService {
     public TestAnalyticResponse getAnalyticForTest(Long pollId) {
 
         PollAnalytics pollAnalytics = gettingPollService.getPollById(pollId);
-        return testAnalyticResponseMapper.toTestAnalyticResponse(pollAnalytics);
 
+        switch(pollAnalytics.typeOfPoll()){
+            case ("TEST") -> {
+                return testAnalyticResponseMapperForTest.toTestAnalyticResponse(pollAnalytics);
+            }
+            case ("STATISTICS") -> {
+                return testAnalyticResponseMapperForAnalytic.toTestAnalyticResponse(pollAnalytics);
+            }
+
+        }
+        throw new NotFoundUserException("Not Found this poll");
     }
 }

@@ -1,21 +1,16 @@
-package org.example.springboot.analyticsservice.Api.Mapper;
+package org.example.springboot.analyticsservice.Api.Mapper.Analytic;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.springboot.analyticsservice.Api.DTO.Analytic.AnalyticAnswer;
 import org.example.springboot.analyticsservice.Api.DTO.RestObject.AnswerAnalytics;
-import org.example.springboot.analyticsservice.Api.DTO.RestObject.PollAnalytics;
 import org.example.springboot.analyticsservice.Api.DTO.RestObject.QuestionAnalytics;
-import org.example.springboot.analyticsservice.Data.Entity.Poll;
 import org.example.springboot.analyticsservice.Data.Repository.AnswerRepository;
-import org.example.springboot.analyticsservice.Data.Repository.PollRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class AnalyticAnswerMapper {
+public class AnalyticAnswerMapperForAnalytic {
 
     private final AnswerRepository answerRepository;
     @Transactional
@@ -26,7 +21,7 @@ public class AnalyticAnswerMapper {
         return AnalyticAnswer
                 .builder()
                 .answer(answerAnalytics.answer())
-                .correctness(answerAnalytics.correctness())
+                .correctness(null)
                 .countOfAnswers(countOfAnswers)
                 .build();
 

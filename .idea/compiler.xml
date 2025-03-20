@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Config-server" />
+        <module name="Gateway-service" />
         <module name="Discovery-service" />
       </profile>
       <profile name="Annotation profile for Analytics-service" enabled="true">
@@ -24,7 +25,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
+        <processorPath>
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
@@ -37,6 +38,7 @@
       <module name="Analytics-service" options="-parameters" />
       <module name="Config-server" options="-parameters" />
       <module name="Discovery-service" options="-parameters" />
+      <module name="Gateway-service" options="-parameters" />
       <module name="Polls-service" options="-parameters" />
       <module name="User-service" options="-parameters" />
     </option>

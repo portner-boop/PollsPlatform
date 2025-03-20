@@ -22,14 +22,14 @@ public class AnswerMapper {
             return new AnswerResponse(
                     answer.getId(),
                     answer.getAnswer(),
-                    answer.isCorrectness()
+                    answer.getCorrectness()
             );
         }
 
     public Answer mapToAnswer(AnswerRequest answerRequest) {
         Answer answer = new Answer();
         answer.setAnswer(answerRequest.getAnswer());
-        answer.setCorrectness(answerRequest.isCorrectness());
+        answer.setCorrectness(answerRequest.getCorrectness());
         return answer;
     }
 
@@ -43,7 +43,7 @@ public class AnswerMapper {
                 answer.getQuestion().getId(),
                 answerRequest.getAnswerId(),
                 answer.getAnswer(),
-                answer.isCorrectness()
+                answer.getCorrectness()
 
         );
     }

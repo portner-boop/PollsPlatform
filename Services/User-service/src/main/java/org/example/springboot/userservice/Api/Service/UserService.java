@@ -27,7 +27,7 @@ public class UserService {
 
     public UserResponse createUser(UserRequest userRequest) {
         User user = userMapper.toUser(userRequest);
-        user.setId(String.valueOf(UUID.randomUUID()));
+
         return  userMapper.toUserResponse(userRepository.save(user));
 
     }

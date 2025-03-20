@@ -8,6 +8,6 @@ public record AnswerResponse(
 
         Long id,
         String answer,
-        boolean correctness
+        Boolean correctness
 ) {
 }

@@ -12,8 +12,10 @@ public class AnswerRequest {
     @NotEmpty(message = "Answer must not be empty")
     private String answer;
 
-    private boolean correctness;
+    private Boolean correctness;
 
 
-
+    public Boolean isCorrectness() {
+        return correctness;
+    }
 }

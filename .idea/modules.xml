@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Services/Polls-service/Polls-service.iml" filepath="$PROJECT_DIR$/Services/Polls-service/Polls-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/PollsPlatform.iml" filepath="$PROJECT_DIR$/PollsPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/frontend.iml" filepath="$PROJECT_DIR$/frontend.iml" />
     </modules>
   </component>
 </project>

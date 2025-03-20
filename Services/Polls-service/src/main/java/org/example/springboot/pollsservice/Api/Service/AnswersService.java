@@ -13,7 +13,7 @@ public class AnswersService {
 
     private final AnswersFormMapper answersFormMapper;
     private final AnswersProducerService answersProducerService;
-    private final AnswerMapper answerMapper;
+
 
     public AnswersFormResponse createAnswerForm(AnswersFormRequest answersFormRequest) {
         AnswersFormResponse answersFormResponse = answersFormMapper.toAnswersFormResponse(answersFormRequest);

@@ -22,7 +22,7 @@ public class Answer {
 
     private String answer;
 
-    private boolean correctness;
+    private Boolean correctness;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "poll_id")

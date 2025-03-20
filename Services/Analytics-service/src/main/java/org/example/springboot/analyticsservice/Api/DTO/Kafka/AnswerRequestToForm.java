@@ -8,6 +8,6 @@ public record AnswerRequestToForm(
         Long questionId,
         Long id,
         String answer,
-        boolean correctness
+        Boolean correctness
 ) {
 }

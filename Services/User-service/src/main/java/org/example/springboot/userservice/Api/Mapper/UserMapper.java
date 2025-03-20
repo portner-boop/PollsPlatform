@@ -21,8 +21,9 @@ public class UserMapper {
     public User toUser(UserRequest userRequest){
         return User
                 .builder()
-                .localRole(userRequest.getLocalRole())
+                .id(userRequest.getId())
                 .email(userRequest.getEmail())
+                .localRole(String.valueOf(userRequest.getLocalRole()))
                 .build();
     }
 }

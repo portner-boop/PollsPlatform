@@ -6,6 +6,6 @@ import lombok.Builder;
 public record AnswerAnalytics(
          Long id,
          String answer,
-         boolean correctness
+         Boolean correctness
 ) {
 }

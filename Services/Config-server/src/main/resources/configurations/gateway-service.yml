@@ -1,0 +1,27 @@
+spring:
+
+  cloud:
+    gateway:
+      logging:
+        level:
+          org.springframework.cloud.gateway: TRACE
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: analytics-server
+          uri: http://localhost:8003
+          predicates:
+            - Path=/api/v1/analytic/*
+        - id: polls-service
+          uri: http://localhost:8001
+          predicates:
+            - Path=/api/v1/polls/*
+        - id: user-service
+          uri: http://localhost:8002
+          predicates:
+            - Path=/api/v1/user/*
+
+
+server:
+  port: 8006

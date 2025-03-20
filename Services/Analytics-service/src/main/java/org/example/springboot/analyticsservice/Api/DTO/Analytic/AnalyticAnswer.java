@@ -6,7 +6,7 @@ import lombok.Builder;
 public record AnalyticAnswer(
         String answer,
         Long countOfAnswers,
-        boolean correctness
+        Boolean correctness
         ) {
 
 }

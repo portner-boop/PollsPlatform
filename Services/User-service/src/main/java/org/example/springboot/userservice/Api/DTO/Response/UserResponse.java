@@ -10,7 +10,7 @@ public record UserResponse(
 
         String id,
 
-        LocalRole role,
+        String role,
 
         LocalDateTime creationDate,
 
