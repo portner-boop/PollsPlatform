@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+  main:
+    web-application-type: reactive
+  config:
+    import: optional:configserver:http://localhost:8004
+  application:
+    name: gateway-service
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8005/realms/my-realm
+keycloak:
+  admin:
+    username: admin
+    password: admin
+  server:
+    url: http://localhost:8005
+  realm: my-realm
+  master:
+    realm: master
+  keycloak.client.id: admin-cli
+
+
+
