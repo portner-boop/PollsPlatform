@@ -22,7 +22,7 @@ public class AnswersFormMapper {
                 .map(answerMapper::mapToAnswerResponseForm)
                 .toList();
         return new AnswersFormResponse(answersFormRequest.getPollId(),
-                answersFormRequest.getType(), UUID.randomUUID(), listOfAnswerResponses);
+                answersFormRequest.getType(),answersFormRequest.getId(), listOfAnswerResponses);
 
     }
 }

@@ -18,6 +18,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,7 @@ public class AnalyticService {
     private final GettingPollService gettingPollService;
     private final TestAnalyticResponseMapperForTest testAnalyticResponseMapperForTest;
     private final TestAnalyticResponseMapperForAnalytic testAnalyticResponseMapperForAnalytic;
+    private final PollsCompleteByUserRepository pollsCompleteByUserRepository;
 
     @KafkaListener(topics = "answers-topic", groupId = "analytic-service-group")
     @Transactional
@@ -80,5 +83,23 @@ public class AnalyticService {
 
         }
         throw new NotFoundUserException("Not Found this poll");
+    }
+
+    public Boolean checkTestDoneByUser(String userId,Long pollId) {
+
+        PollsCompletedByUser pollsCompletedByUser =pollsCompleteByUserRepository.findByUserId(userId)
+                .orElseThrow(() -> new NotFoundUserException("Not Found this user"));
+
+        Optional<Long> pollIdOptional = pollsCompletedByUser.getPolls()
+                .stream()
+                .filter(e -> e.getPollId().equals(pollId))
+                .map(Poll::getPollId)
+                .findAny();
+
+        if(pollIdOptional.isPresent()){
+            return true;
+        }
+
+        return false;
     }
 }

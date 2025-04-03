@@ -13,7 +13,7 @@ public record AnswersFormResponse(
 
         TypeOfPoll typeOfPoll,
 
-        UUID userId ,
+        String userId ,
 
         List<AnswerResponseToForm> listOfAnswers
 ) {

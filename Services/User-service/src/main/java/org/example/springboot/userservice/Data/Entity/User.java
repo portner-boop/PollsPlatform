@@ -21,8 +21,6 @@ public class User {
     @Id
     String id;
 
-    String localRole;
-
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @CreationTimestamp
     LocalDateTime CreationDate;

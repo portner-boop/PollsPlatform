@@ -11,7 +11,6 @@ public class UserMapper {
     public UserResponse toUserResponse(User user){
         return UserResponse
                 .builder()
-                .role(user.getLocalRole())
                 .creationDate(user.getCreationDate())
                 .id(user.getId())
                 .email(user.getEmail())
@@ -23,7 +22,6 @@ public class UserMapper {
                 .builder()
                 .id(userRequest.getId())
                 .email(userRequest.getEmail())
-                .localRole(String.valueOf(userRequest.getLocalRole()))
                 .build();
     }
 }

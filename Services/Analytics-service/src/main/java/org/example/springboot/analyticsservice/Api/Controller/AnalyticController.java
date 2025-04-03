@@ -27,5 +27,12 @@ public class AnalyticController {
         return ResponseEntity.ok(analyticService.getAnalyticForTest(poll_id));
     }
 
+    @GetMapping("/analytic/check_test_done/{poll_id}/{user_id}")
+    public ResponseEntity<Boolean>  checkTestDoneByUser(
+            @PathVariable(name = "user_id")  String userId,
+            @PathVariable(name = "poll_id")  Long pollId){
+        return ResponseEntity.ok(analyticService.checkTestDoneByUser(userId,pollId));
+    }
+
 
 }

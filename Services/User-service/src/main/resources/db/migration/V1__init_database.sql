@@ -1,6 +1,5 @@
 CREATE TABLE "user_table" (
 id VARCHAR(36) PRIMARY KEY,
-local_role VARCHAR(50),
 creation_date TIMESTAMP WITH TIME ZONE,
 email VARCHAR(255) NOT NULL UNIQUE,
 CONSTRAINT email_not_null CHECK (email IS NOT NULL)
