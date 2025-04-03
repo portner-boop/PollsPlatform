@@ -15,10 +15,10 @@ import java.util.List;
 @Builder
 @Table(name = "polls_completed_by_user", schema = "analytic")
 public class PollsCompletedByUser {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "user_id")
     private String userId;
 
@@ -26,9 +26,7 @@ public class PollsCompletedByUser {
     private List<Poll> polls;
 
     public void addPoll(Poll poll) {
-
         polls.add(poll);
         if(polls != null)  poll.setPollsCompletedByUser(this);
     }
-
 }

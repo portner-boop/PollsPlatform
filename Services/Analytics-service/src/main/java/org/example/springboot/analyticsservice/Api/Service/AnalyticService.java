@@ -42,10 +42,7 @@ public class AnalyticService {
     }
 
     private void processAnswerFormResponse(AnswersFormRequest request) {
-
-
         String userId = String.valueOf(request.userId());
-
         if (!(pollsCompleteByUser.existsPollsCompletedByUserId(userId))){
 
             PollsCompletedByUser user = new PollsCompletedByUser();
@@ -58,7 +55,6 @@ public class AnalyticService {
                     .orElseThrow(() -> new NotFoundUserException("Not Found this user with id: "+ userId));
             saveResultOfUser(user, request);
             log.info("User with userId: {} already exists", userId);
-
         }
 
     }
@@ -70,9 +66,7 @@ public class AnalyticService {
     }
 
     public TestAnalyticResponse getAnalyticForTest(Long pollId) {
-
         PollAnalytics pollAnalytics = gettingPollService.getPollById(pollId);
-
         switch(pollAnalytics.typeOfPoll()){
             case ("TEST") -> {
                 return testAnalyticResponseMapperForTest.toTestAnalyticResponse(pollAnalytics);
@@ -80,26 +74,21 @@ public class AnalyticService {
             case ("STATISTICS") -> {
                 return testAnalyticResponseMapperForAnalytic.toTestAnalyticResponse(pollAnalytics);
             }
-
         }
         throw new NotFoundUserException("Not Found this poll");
     }
 
     public Boolean checkTestDoneByUser(String userId,Long pollId) {
-
         PollsCompletedByUser pollsCompletedByUser =pollsCompleteByUserRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundUserException("Not Found this user"));
-
         Optional<Long> pollIdOptional = pollsCompletedByUser.getPolls()
                 .stream()
                 .filter(e -> e.getPollId().equals(pollId))
                 .map(Poll::getPollId)
                 .findAny();
-
         if(pollIdOptional.isPresent()){
             return true;
         }
-
         return false;
     }
 }

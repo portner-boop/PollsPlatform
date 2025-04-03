@@ -17,7 +17,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Poll {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AnswerMapper {
-
     private final AnswerRepository answerRepository;
 
         public AnswerResponse mapToAnswerResponse(Answer answer) {

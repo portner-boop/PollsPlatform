@@ -27,6 +27,4 @@ public class TestAnalyticResponseMapperForTest {
                 .questionAnalyticList(questionAnalytics)
                 .build();
     }
-
-
 }

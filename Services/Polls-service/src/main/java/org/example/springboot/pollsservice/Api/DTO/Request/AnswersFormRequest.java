@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 public class AnswersFormRequest {
-
     String id;
 
     Long pollId;

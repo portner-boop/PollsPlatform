@@ -14,7 +14,6 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PollRequest {
-
     @NotNull(message = "Title must not be null")
     @NotEmpty(message = "Title must not be empty")
     String title;
@@ -29,7 +28,4 @@ public class PollRequest {
     @NotNull(message = "Questions must not be null")
     @NotEmpty(message = "Questions must not be empty")
     List<QuestionRequest> questions;
-
-
-
 }

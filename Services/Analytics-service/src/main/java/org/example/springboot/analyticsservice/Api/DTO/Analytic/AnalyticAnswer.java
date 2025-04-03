@@ -8,5 +8,4 @@ public record AnalyticAnswer(
         Long countOfAnswers,
         Boolean correctness
         ) {
-
 }

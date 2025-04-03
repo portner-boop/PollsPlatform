@@ -4,15 +4,12 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/Services/Config-server/pom.xml" />
-        <option value="$PROJECT_DIR$/Services/discovery-service/pom.xml" />
         <option value="$PROJECT_DIR$/Services/Polls-service/pom.xml" />
-        <option value="$PROJECT_DIR$/user-service/pom.xml" />
-        <option value="$PROJECT_DIR$/Analytics-service/pom.xml" />
-        <option value="$PROJECT_DIR$/Services/user-service/pom.xml" />
-        <option value="$PROJECT_DIR$/Services/Analytics-service/pom.xml" />
-        <option value="$PROJECT_DIR$/Services/gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/User-service/pom.xml" />
         <option value="$PROJECT_DIR$/Services/Gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/Discovery-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/Config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/Analytics-service/pom.xml" />
       </list>
     </option>
   </component>

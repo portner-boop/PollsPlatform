@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Builder
 public record AnswersFormResponse(
-
         Long pollId,
 
         TypeOfPoll typeOfPoll,

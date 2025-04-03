@@ -33,6 +33,4 @@ public class AnalyticController {
             @PathVariable(name = "poll_id")  Long pollId){
         return ResponseEntity.ok(analyticService.checkTestDoneByUser(userId,pollId));
     }
-
-
 }

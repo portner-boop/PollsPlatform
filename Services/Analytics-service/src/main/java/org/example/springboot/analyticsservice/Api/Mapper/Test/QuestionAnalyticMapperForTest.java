@@ -14,7 +14,6 @@ import java.util.List;
 public class QuestionAnalyticMapperForTest {
     private final AnalyticAnswerMapperForTest analyticAnswerMapperForTest;
 
-
     public QuestionAnalytic toQuestionAnalytic(QuestionAnalytics questionAnalytics) {
         List<AnalyticAnswer> analyticAnswers = questionAnalytics
                 .answers()
