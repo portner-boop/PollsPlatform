@@ -5,7 +5,9 @@ import lombok.Builder;
 @Builder
 public record AnswerAnalytics(
          Long id,
+
          String answer,
+
          Boolean correctness
 ) {
 }

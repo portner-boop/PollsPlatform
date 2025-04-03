@@ -5,9 +5,10 @@ import lombok.Builder;
 
 @Builder
 public record AnswerResponse(
-
         Long id,
+
         String answer,
+
         Boolean correctness
 ) {
 }

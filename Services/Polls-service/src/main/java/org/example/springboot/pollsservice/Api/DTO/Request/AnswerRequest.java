@@ -7,13 +7,11 @@ import lombok.Data;
 
 @Data
 public class AnswerRequest {
-
     @NotNull(message = "Answer must not be null")
     @NotEmpty(message = "Answer must not be empty")
     private String answer;
 
     private Boolean correctness;
-
 
     public Boolean isCorrectness() {
         return correctness;

@@ -8,7 +8,9 @@ import java.util.List;
 @Builder
 public record QuestionAnalytics(
          Long id,
+
          String question,
+
          List<AnswerAnalytics> answers
 ) {
 }

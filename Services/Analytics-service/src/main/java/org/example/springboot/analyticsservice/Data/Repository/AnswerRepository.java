@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer,Long> {
-
     Long countAnswersByQuestionIdAndAnswer(Long questionId, String answer);
 }

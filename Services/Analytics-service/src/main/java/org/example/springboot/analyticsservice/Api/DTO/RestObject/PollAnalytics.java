@@ -18,5 +18,4 @@ public record PollAnalytics(
         String typeOfPoll,
 
         List<QuestionAnalytics> questions) {
-
 }

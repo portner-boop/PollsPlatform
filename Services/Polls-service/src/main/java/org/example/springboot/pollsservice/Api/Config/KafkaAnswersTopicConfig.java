@@ -8,7 +8,6 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class KafkaAnswersTopicConfig {
-
     @Bean
     public NewTopic answersTopic() {
         return TopicBuilder

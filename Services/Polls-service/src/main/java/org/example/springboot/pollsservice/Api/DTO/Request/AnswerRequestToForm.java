@@ -7,8 +7,6 @@ import lombok.Data;
 
 @Data
 public class AnswerRequestToForm {
-
     @NotNull(message = "AnswerId must not be null")
     Long answerId;
-
 }
