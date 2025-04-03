@@ -1,20 +1,28 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/polls_db
+    url: jdbc:postgresql://localhost:5432/polls_platform_bd
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     baseline-on-migrate: true
     enabled: true
+    schemas: public
     baseline-description: "init"
     baseline-version: 0
-    user: ${spring.datasource.user}
+    user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: AnswersFormResponse:org.example.springboot.pollsservice.Api.DTO.Response.AnswersFormResponse
 server:
-  port: 8383
+  port: 8001
